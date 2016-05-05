@@ -1,5 +1,8 @@
 package com.lm.learn.pcegg.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class VersionCheckResponse {
 	private Integer status;
 	private String needUpdate;
@@ -7,6 +10,15 @@ public class VersionCheckResponse {
 	private String updateUrl;
 	private String version;
 	private String msg;
+	private String SP_ISOPEN;
+
+	public String getSP_ISOPEN() {
+		return SP_ISOPEN;
+	}
+
+	public void setSP_ISOPEN(String SP_ISOPEN) {
+		this.SP_ISOPEN = SP_ISOPEN;
+	}
 
 	public Integer getStatus() {
 		return status;

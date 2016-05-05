@@ -17,10 +17,10 @@ public class TimesUtil {
 				ret = 100000;
 			break;
 		case eumOneThird:
-			if (GlobalData.lostCount == 0 || GlobalData.lostCount > 10) 
+			if (GlobalData.lostCount%10==0) 
 				GlobalData.baseTimes =  ((int) (totalEggs / 3400000))+1;
 			
-			ret = (int) Math.pow(2, GlobalData.lostCount);
+			ret = (int) Math.pow(2, (GlobalData.lostCount%10));
 			ret = ret * GlobalData.baseTimes;
 			break;
 		default:

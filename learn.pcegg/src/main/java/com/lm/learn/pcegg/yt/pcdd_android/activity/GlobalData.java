@@ -12,10 +12,11 @@ public class GlobalData {
 	public static String password;
 	public static LoginResponse login;
 	public static int lostCount=0;	
-	public static String LastInvestNumber="";
+	public static Integer LastOpenResult=-1;
 	public static String versionCode="3.1.8";
 	public static int baseTimes = 1;
 	public static TreeSet<Integer> lastInvestData = null;
+	public static Integer LastInvestVolumeId = 0;
 	
 	public static final String deviceid = "99000559836016";
 	public static final String cid = "";

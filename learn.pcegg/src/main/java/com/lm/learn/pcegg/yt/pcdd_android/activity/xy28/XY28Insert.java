@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import com.lm.learn.pcegg.yt.pcdd_android.activity.Base;
 import com.lm.learn.pcegg.yt.pcdd_android.activity.GlobalData;
+import com.lm.learn.pcegg.yt.pcdd_android.activity.OneThirdInsert;
 import com.lm.learn.pcegg.yt.pcdd_android.activity.RandomInsert1;
 import com.lm.learn.pcegg.yt.pcdd_android.tools.PCMd5;
 
@@ -41,7 +42,8 @@ public class XY28Insert extends Base {
 
 	public <T> T go(Class<T> type) throws Exception {
 		// 随机选出最大下注对象
-		TreeSet<Integer> set = super.getInsertData();
+		TreeSet<Integer> set = OneThirdInsert.getData(GlobalData.LastOpenResult);
+		super.setInsertData(set);
 		StringBuilder sb = new StringBuilder();
 		long l = 0L;
 		for (int i = 0; i < 28; i++) {
