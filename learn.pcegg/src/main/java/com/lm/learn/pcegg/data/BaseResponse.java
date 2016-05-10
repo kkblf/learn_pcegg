@@ -23,4 +23,8 @@ public class BaseResponse {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
+	
+	public boolean isSuccess(){
+		return this.msg.equals("成功");
+	}
 }

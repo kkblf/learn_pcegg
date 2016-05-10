@@ -68,7 +68,7 @@ public class App {
 					
 					int openDown=0;
 					int cutDown=0;
-					
+					int retry = 0;
 					if (volumeList != null && volumeList.getStatus() == 0&&versionCheckResponse.isSuccess()) {
 						// 获取金蛋数量
 						logger.info("准备获取用户信息");
@@ -139,18 +139,28 @@ public class App {
 							insert.setTimes(times);
 							logger.info("准备下注【"+volumeId+"】");
 							BaseResponse insertResponse = insert.go(BaseResponse.class);
-							logger.info(new ObjectMapper().writeValueAsString(insert.getInsertData()));
 							logger.info(new ObjectMapper().writeValueAsString(insertResponse));
-							GlobalData.lastInvestData = insert.getInsertData();
-							GlobalData.LastInvestVolumeId = Integer.parseInt(volumeId);
+							retry = 3;
+							if(insertResponse.isSuccess()){
+								logger.info(new ObjectMapper().writeValueAsString(insert.getInsertData()));
+								GlobalData.lastInvestData = insert.getInsertData();
+								GlobalData.LastInvestVolumeId = Integer.parseInt(volumeId);
+								retry = 0;
+							} else if(insertResponse.getMsg().equals("请先去快速任务赚取足够的收入，兑换金蛋就可以玩了！")){
+								  GlobalData.lostCount = 0;
+								  logger.info("金额不足，重置失败次数为0");
+							}
 							
 						}
 						
 						//设置等待时间
 						logger.info("开奖时间【"+openDown+"】");
 						logger.info("截止投注时间【"+cutDown+"】");
-						if(cutDown>0)
-						  sleepMillisecond = (cutDown+60) * 1000;
+						logger.info("重试时间【"+retry+"】");
+						if(retry>0){
+						  sleepMillisecond = retry * 1000;	
+						} else if(cutDown>0)
+						  sleepMillisecond = (cutDown+120) * 1000;
 						else if(openDown>0)
 						  sleepMillisecond = 1000 * openDown;
 						else 
